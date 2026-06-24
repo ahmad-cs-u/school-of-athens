@@ -1,0 +1,100 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#scene {
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#scroll-track {
+    position: absolute;
+    height:2500vh;
+    width:1px;
+    pointer-events: none;
+}
+
+#highlight {
+    z-index: 10;
+    position: fixed;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(255,220,100,0.6), 0 0 40px 20px rgba(255,200,50,0.3);
+    pointer-events: none;
+    width: 120px;
+    height: 180px;
+    opacity: 0;
+    transition: left 0.6s ease, top 0.6s ease, opacity 0.3s ease;
+}
+
+#bubble {
+    z-index: 10;
+    position: fixed;
+    max-width: 240px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: #fffff0;
+    border: 2px solid #8b7355;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: #2c1810;
+}
+
+#bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -9px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px 8px 0 8px;
+    border-style: solid;
+    border-color: #fffff0 transparent transparent transparent;
+}
+
+#bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 12px 10px 0 10px;
+    border-style: solid;
+    border-color: #8b7355 transparent transparent transparent;
+}
+
+#bubble h3 {
+    font-size: 13px;
+    margin: 0 0 6px 0;
+    color: #5c3d1e;
+    border-bottom: 1px solid #c4a882;
+    padding-bottom: 6px;
+}
+
+#wiki-link {
+    display: inline-block;
+    margin-top: 8px;
+    color: #8b7355;
+    text-decoration: none;
+    border-bottom: 1px dotted #8b7355;
+}
+
+#wiki-link:hover {
+    color: #2c1810;
+    border-bottom-style: solid;
+}
+
+#bubble p {
+   font-size: 12px;
+    line-height: 1.5;
+    margin: 0;
+    font-style: italic; 
+}
