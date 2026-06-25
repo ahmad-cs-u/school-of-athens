@@ -1,100 +1,339 @@
-body {
-    font-family: 'Courier New', Courier, monospace;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-
+body {
+    margin: 0;
+    overflow-x: hidden;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    background: #060504;
+}
+/* Hide scrollbar but keep functionality */
+body::-webkit-scrollbar {
+    width: 0;
+}
+body {
+    scrollbar-width: none;
+}
+/* ── Scene (fixed painting) ───────────────────── */
 #scene {
-    position:fixed;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    z-index: 1;
 }
-
-img {
+#scene img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: filter 1s ease;
 }
-
-#scroll-track {
+body.landing-active #scene img {
+    filter: brightness(0.45) saturate(0.8);
+}
+/* Vignette overlay for museum feel */
+#vignette {
     position: absolute;
-    height:2500vh;
-    width:1px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse at center, transparent 50%, rgba(5, 4, 3, 0.5) 100%);
+    z-index: 2;
+}
+/* ── Landing Overlay ──────────────────────────── */
+#landing {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(10, 8, 5, 0.55) 0%,
+        rgba(5, 3, 2, 0.8) 100%
+    );
+    transition: opacity 0.8s ease;
+    pointer-events: auto;
+}
+#landing.hidden {
+    opacity: 0;
     pointer-events: none;
 }
-
+.landing-content {
+    text-align: center;
+    color: #e8dcc8;
+    animation: fadeInUp 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    max-width: 600px;
+    padding: 0 24px;
+}
+.landing-ornament {
+    font-size: 2.2rem;
+    color: #c4a265;
+    margin-bottom: 1.5rem;
+    opacity: 0.6;
+    animation: fadeIn 2.5s ease forwards;
+}
+.landing-content h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.2rem, 6vw, 4.2rem);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #f0e6d4;
+    margin-bottom: 1.2rem;
+    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.6);
+    line-height: 1.2;
+}
+.landing-artist {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(0.8rem, 1.8vw, 1.05rem);
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #c4a265;
+    margin-bottom: 1.5rem;
+}
+.landing-divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #c4a265, transparent);
+    margin: 0 auto 1.5rem;
+    opacity: 0.6;
+}
+.landing-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2.2vw, 1.3rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.9;
+    color: #b8a88e;
+    margin: 0 auto 3.5rem;
+}
+.scroll-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    color: #8a7b64;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    animation: pulseOpacity 3s ease-in-out infinite;
+}
+.scroll-arrow {
+    animation: bounceDown 2.2s ease-in-out infinite;
+    opacity: 0.7;
+}
+/* ── Keyframes ────────────────────────────────── */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 0.6; }
+}
+@keyframes pulseOpacity {
+    0%, 100% { opacity: 0.45; }
+    50% { opacity: 1; }
+}
+@keyframes bounceDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+}
+@keyframes highlightPulse {
+    0% {
+        box-shadow:
+            0 0 0 3px rgba(212, 175, 100, 0.5),
+            0 0 25px 10px rgba(212, 175, 100, 0.25);
+    }
+    50% {
+        box-shadow:
+            0 0 0 4px rgba(212, 175, 100, 0.7),
+            0 0 40px 15px rgba(212, 175, 100, 0.35);
+    }
+    100% {
+        box-shadow:
+            0 0 0 3px rgba(212, 175, 100, 0.5),
+            0 0 25px 10px rgba(212, 175, 100, 0.25);
+    }
+}
+/* ── Scroll Track ─────────────────────────────── */
+#scroll-track {
+    position: relative;
+    height: 2500vh;
+    width: 1px;
+    pointer-events: none;
+}
+/* ── Highlight Oval ───────────────────────────── */
 #highlight {
     z-index: 10;
     position: fixed;
     border-radius: 50%;
-    box-shadow: 0 0 0 4px rgba(255,220,100,0.6), 0 0 40px 20px rgba(255,200,50,0.3);
     pointer-events: none;
-    width: 120px;
-    height: 180px;
+    width: 110px;
+    height: 160px;
     opacity: 0;
-    transition: left 0.6s ease, top 0.6s ease, opacity 0.3s ease;
+    background: radial-gradient(ellipse, rgba(212, 175, 100, 0.06) 0%, transparent 70%);
+    box-shadow:
+        0 0 0 3px rgba(212, 175, 100, 0.5),
+        0 0 25px 10px rgba(212, 175, 100, 0.25);
+    transition:
+        left 0.75s cubic-bezier(0.25, 0.1, 0.25, 1),
+        top 0.75s cubic-bezier(0.25, 0.1, 0.25, 1),
+        opacity 0.5s ease;
+    animation: highlightPulse 3s ease-in-out infinite;
 }
-
+/* ── Info Bubble ──────────────────────────────── */
 #bubble {
-    z-index: 10;
+    z-index: 20;
     position: fixed;
-    max-width: 240px;
-    padding: 12px 16px;
-    border-radius: 8px;
-    background: #fffff0;
-    border: 2px solid #8b7355;
+    max-width: 280px;
+    min-width: 200px;
+    padding: 20px 24px;
+    border-radius: 10px;
+    background: linear-gradient(
+        145deg,
+        rgba(255, 252, 240, 0.94),
+        rgba(248, 242, 226, 0.94)
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(180, 155, 100, 0.25);
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.35),
+        0 2px 10px rgba(0, 0, 0, 0.12);
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
     color: #2c1810;
+    transform: translateY(8px);
 }
-
-#bubble::before {
+#bubble.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* Bubble arrow (bottom, for bubble above highlight) */
+#bubble.arrow-bottom::after {
     content: '';
     position: absolute;
-    bottom: -9px;
+    bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
-    border-width: 10px 8px 0 8px;
-    border-style: solid;
-    border-color: #fffff0 transparent transparent transparent;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid rgba(248, 242, 226, 0.94);
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
 }
-
-#bubble::after {
+/* Bubble arrow (top, for bubble below highlight) */
+#bubble.arrow-top::after {
     content: '';
     position: absolute;
-    bottom: -12px;
+    top: -8px;
     left: 50%;
     transform: translateX(-50%);
-    border-width: 12px 10px 0 10px;
-    border-style: solid;
-    border-color: #8b7355 transparent transparent transparent;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid rgba(255, 252, 240, 0.94);
+    filter: drop-shadow(0 -2px 2px rgba(0, 0, 0, 0.1));
 }
-
 #bubble h3 {
-    font-size: 13px;
-    margin: 0 0 6px 0;
-    color: #5c3d1e;
-    border-bottom: 1px solid #c4a882;
-    padding-bottom: 6px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    color: #4a2e14;
+    border-bottom: 1px solid rgba(196, 168, 130, 0.35);
+    padding-bottom: 10px;
+    letter-spacing: 0.04em;
 }
-
+#bubble p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    line-height: 1.65;
+    margin: 0;
+    font-style: italic;
+    color: #4a3520;
+}
 #wiki-link {
     display: inline-block;
-    margin-top: 8px;
+    margin-top: 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
     color: #8b7355;
     text-decoration: none;
-    border-bottom: 1px dotted #8b7355;
+    border-bottom: 1px dotted rgba(139, 115, 85, 0.4);
+    transition: color 0.3s ease, border-color 0.3s ease;
+    letter-spacing: 0.06em;
 }
-
 #wiki-link:hover {
     color: #2c1810;
-    border-bottom-style: solid;
+    border-bottom: 1px solid #2c1810;
 }
-
-#bubble p {
-   font-size: 12px;
-    line-height: 1.5;
-    margin: 0;
-    font-style: italic; 
+/* ── Progress Indicator ───────────────────────── */
+#progress {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: 28px;
+    background: rgba(8, 6, 4, 0.65);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(196, 168, 130, 0.12);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+}
+#progress.visible {
+    opacity: 1;
+}
+#progress-current {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    color: #c4a265;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    text-align: center;
+}
+#progress-bar {
+    width: 140px;
+    height: 2px;
+    background: rgba(196, 168, 130, 0.15);
+    border-radius: 1px;
+    overflow: hidden;
+}
+#progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #b08d4c, #d4b87a);
+    border-radius: 1px;
+    transition: width 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+    width: 0%;
 }

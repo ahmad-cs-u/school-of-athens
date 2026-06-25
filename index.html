@@ -1,21 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <title>The School of Athens</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="An interactive exploration of Raphael's School of Athens — scroll to discover each philosopher, their quotes, and their legacy.">
+        <title>The School of Athens | Annotated</title>
+        <link rel="icon" type="image/x-icon" href="/assets/star.jpg">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <!-- Landing Overlay -->
+        <div id="landing">
+            <div class="landing-content">
+                <div class="landing-ornament">&#10087;</div>
+                <h1>The School of Athens</h1>
+                <p class="landing-artist">Raphael &middot; Apostolic Palace, Vatican City &middot; 1509&ndash;1511</p>
+                <div class="landing-divider"></div>
+                <p class="landing-tagline">An interactive journey through one of the greatest<br>masterpieces of the High Renaissance</p>
+                <div class="scroll-indicator">
+                    <span>Scroll to explore</span>
+                    <div class="scroll-arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main Scene -->
         <div id="scene">
-            <img src="assets/The_School_of_Athens.jpg" alt="The School of Athens">
+            <img src="assets/The_School_of_Athens.jpg" alt="The School of Athens by Raphael, 1509-1511">
+            <div id="vignette"></div>
         </div>
-        <div id="highlight">
-
-        </div>
+        <!-- Highlight oval -->
+        <div id="highlight"></div>
+        <!-- Info bubble -->
         <div id="bubble">
             <h3 id="philosopher-name"></h3>
             <p id="quote"></p>
-            <a id="wiki-link"></a>
-            <div id="scroll-track"></div>
+            <a id="wiki-link" target="_blank" rel="noopener noreferrer">Read more &rarr;</a>
         </div>
+        <!-- Progress indicator -->
+        <div id="progress">
+            <span id="progress-current"></span>
+            <div id="progress-bar">
+                <div id="progress-fill"></div>
+            </div>
+        </div>
+        <!-- Scroll track (creates scrollable height) -->
+        <div id="scroll-track"></div>
+
+        <script src="script.js"></script>
     </body>
 </html>
