@@ -2,7 +2,7 @@
 ## Description:
 *The School of Athens* is a fresco made by Raphael. It was painted between 1509 and 1511. It is considered the best work of Raphael and whenever the Renaissance period is mentioned, this it is the first one that comes to mind. And an unnecessary fact is that I had this image as my wallpaper for quite a long time.
 ### Hosted on:
-Neocities: schoolofathens.neocities.org
+Neocities: https://schoolofathens.neocities.org
 ## Scene:
 The School of Athens depicts a scene where a congregation of ancient mathematicians, philosophers, and scientists are present. The centre of attraction are Plato and Aristotle who had provided somewhat conflicting contributions to the world.
 
