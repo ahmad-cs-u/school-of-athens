@@ -9,4 +9,5 @@ Archaeologists have identified a few personalities which include Pythagoras, Pto
 This website is a simple horizontal scroller which highlights each *identified* personality from left to right. Provides a notable quote by them and provides a url to their Wikipedia entry.
 ## Sources:
 The source of the image used in this webpage is: https://en.wikipedia.org/wiki/The_School_of_Athens#/media/File:%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg
+
 The source of the annotation is the annotated image: https://en.wikipedia.org/wiki/The_School_of_Athens#/media/File:01_School_of_Athens_with_Labels.jpg
